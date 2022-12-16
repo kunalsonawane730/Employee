@@ -180,3 +180,65 @@ mysql> SELECT gender, COUNT(name) FROM employee_payroll GROUP BY gender;
 | F      |           1 |
 +--------+-------------+
 2 rows in set (0.00 sec)
+
+mysql> #UC8 Ability to extend employee_payroll data to store employee information like employee phone, address and department - Ensure employee department
+mysql>
+mysql> select * from employee_payroll;
++----+--------+--------+----------+------------+
+| id | name   | Gender | salary   | start      |
++----+--------+--------+----------+------------+
+|  1 | Kunal  | M      | 30000000 | 2022-01-01 |
+|  2 | Arvind | M      |  2500000 | 2022-01-05 |
+|  3 | Dipali | F      |  3500000 | 2022-01-10 |
++----+--------+--------+----------+------------+
+3 rows in set (0.00 sec)
+
+mysql> alter table employee_payroll add phone_number varchar(250) after name;
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee_payroll;
++----+--------+--------------+--------+----------+------------+
+| id | name   | phone_number | Gender | salary   | start      |
++----+--------+--------------+--------+----------+------------+
+|  1 | Kunal  | NULL         | M      | 30000000 | 2022-01-01 |
+|  2 | Arvind | NULL         | M      |  2500000 | 2022-01-05 |
+|  3 | Dipali | NULL         | F      |  3500000 | 2022-01-10 |
++----+--------+--------------+--------+----------+------------+
+3 rows in set (0.00 sec)
+
+mysql> update employee_payroll set phone_number='7757877309'where name='Kunal';
+Query OK, 1 row affected (0.15 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee_payroll set phone_number='8329923513'where name='Arvind';
+Query OK, 1 row affected (0.12 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee_payroll set phone_number='9370785156'where name='Dipali';
+Query OK, 1 row affected (0.21 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee_payroll;
++----+--------+--------------+--------+----------+------------+
+| id | name   | phone_number | Gender | salary   | start      |
++----+--------+--------------+--------+----------+------------+
+|  1 | Kunal  | 7757877309   | M      | 30000000 | 2022-01-01 |
+|  2 | Arvind | 8329923513   | M      |  2500000 | 2022-01-05 |
+|  3 | Dipali | 9370785156   | F      |  3500000 | 2022-01-10 |
++----+--------+--------------+--------+----------+------------+
+3 rows in set (0.00 sec)
+
+mysql> alter table employee_payroll add address varchar(255)not null default 'mumbai,Maharashtra'after phone_number;
+Query OK, 0 rows affected (0.09 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee_payroll;
++----+--------+--------------+--------------------+--------+----------+------------+
+| id | name   | phone_number | address            | Gender | salary   | start      |
++----+--------+--------------+--------------------+--------+----------+------------+
+|  1 | Kunal  | 7757877309   | mumbai,Maharashtra | M      | 30000000 | 2022-01-01 |
+|  2 | Arvind | 8329923513   | mumbai,Maharashtra | M      |  2500000 | 2022-01-05 |
+|  3 | Dipali | 9370785156   | mumbai,Maharashtra | F      |  3500000 | 2022-01-10 |
++----+--------+--------------+--------------------+--------+----------+------------+
+3 rows in set (0.00 sec)
