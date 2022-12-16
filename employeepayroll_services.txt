@@ -41,3 +41,12 @@ mysql> describe employee_payroll;
 | start  | date         | NO   |     | NULL    |                |
 +--------+--------------+------+-----+---------+----------------+
 4 rows in set (0.01 sec)
+
+mysql> #UC3 Ability to create employee payroll data in payroll service database as part of CRUD operation
+mysql>
+mysql> INSERT INTO employee_payroll (name, salary, start) VALUES
+    -> ('Kunal', 3000000.00, '2022-01-01'),
+    -> ('Arvind', 2500000.00, '2022-01-05'),
+    -> ('Dipali', 3500000.00, '2022-01-10');
+Query OK, 3 rows affected (0.15 sec)
+Records: 3  Duplicates: 0  Warnings: 0
