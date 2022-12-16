@@ -119,3 +119,64 @@ mysql> SELECT * FROM employee_payroll;
 |  3 | Dipali | F      | 3500000 | 2022-01-10 |
 +----+--------+--------+---------+------------+
 3 rows in set (0.00 sec)
+
+mysql> #UC7 ability to find sum, average, min, max and number of male and female emlpoyees
+mysql>
+mysql> update employee_payroll set salary = 30000000.00 where name = 'Kunal';
+Query OK, 1 row affected (0.09 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM employee_payroll;
++----+--------+--------+----------+------------+
+| id | name   | Gender | salary   | start      |
++----+--------+--------+----------+------------+
+|  1 | Kunal  | M      | 30000000 | 2022-01-01 |
+|  2 | Arvind | M      |  2500000 | 2022-01-05 |
+|  3 | Dipali | F      |  3500000 | 2022-01-10 |
++----+--------+--------+----------+------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT SUM(salary) FROM employee_payroll
+    -> WHERE gender = 'M' GROUP BY gender;
++-------------+
+| SUM(salary) |
++-------------+
+|    32500000 |
++-------------+
+1 row in set (0.04 sec)
+
+mysql> SELECT MIN(salary) FROM employee_payroll
+    -> WHERE gender = 'M' GROUP BY gender;
++-------------+
+| MIN(salary) |
++-------------+
+|     2500000 |
++-------------+
+1 row in set (0.02 sec)
+
+mysql> SELECT AVG(salary) FROM employee_payroll
+    -> WHERE gender = 'M' GROUP BY gender;
++-------------+
+| AVG(salary) |
++-------------+
+|    16250000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT gender, AVG(salary) FROM employee_payroll GROUP BY gender;
++--------+-------------+
+| gender | AVG(salary) |
++--------+-------------+
+| M      |    16250000 |
+| F      |     3500000 |
++--------+-------------+
+2 rows in set (0.03 sec)
+
+mysql> SELECT gender, COUNT(name) FROM employee_payroll GROUP BY gender;
++--------+-------------+
+| gender | COUNT(name) |
++--------+-------------+
+| M      |           2 |
+| F      |           1 |
++--------+-------------+
+2 rows in set (0.00 sec)
