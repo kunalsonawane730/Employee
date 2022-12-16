@@ -242,3 +242,50 @@ mysql> select * from employee_payroll;
 |  3 | Dipali | 9370785156   | mumbai,Maharashtra | F      |  3500000 | 2022-01-10 |
 +----+--------+--------------+--------------------+--------+----------+------------+
 3 rows in set (0.00 sec)
+
+mysql> #UC9Ability to extend employee_payroll table to have Basic Pay, Deductions, Taxable Pay, Income Tax, Net Pay
+mysql>
+mysql> alter table employee_payroll drop salary;
+Query OK, 0 rows affected (0.09 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee_payroll
+    -> ;
++----+--------+--------------+--------------------+--------+------------+
+| id | name   | phone_number | address            | Gender | start      |
++----+--------+--------------+--------------------+--------+------------+
+|  1 | Kunal  | 7757877309   | mumbai,Maharashtra | M      | 2022-01-01 |
+|  2 | Arvind | 8329923513   | mumbai,Maharashtra | M      | 2022-01-05 |
+|  3 | Dipali | 9370785156   | mumbai,Maharashtra | F      | 2022-01-10 |
++----+--------+--------------+--------------------+--------+------------+
+3 rows in set (0.00 sec)
+
+mysql> alter table employee_payroll add basic_pay float(10) not null default '5000000'after name;
+Query OK, 0 rows affected (0.33 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table employee_payroll add deductions float(10) not null default '60000'after basic_pay;
+Query OK, 0 rows affected (0.16 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table employee_payroll add taxable_pay float(10) not null default '7000'after deductions;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table employee_payroll add income_tax float(10) not null default '20000'after taxable_pay;
+Query OK, 0 rows affected (0.11 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table employee_payroll add net_pay float(10) not null default '20000'after income_tax;
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee_payroll;
++----+--------+-----------+------------+-------------+------------+---------+--------------+--------------------+--------+------------+
+| id | name   | basic_pay | deductions | taxable_pay | income_tax | net_pay | phone_number | address            | Gender | start      |
++----+--------+-----------+------------+-------------+------------+---------+--------------+--------------------+--------+------------+
+|  1 | Kunal  |   5000000 |      60000 |        7000 |      20000 |   20000 | 7757877309   | mumbai,Maharashtra | M      | 2022-01-01 |
+|  2 | Arvind |   5000000 |      60000 |        7000 |      20000 |   20000 | 8329923513   | mumbai,Maharashtra | M      | 2022-01-05 |
+|  3 | Dipali |   5000000 |      60000 |        7000 |      20000 |   20000 | 9370785156   | mumbai,Maharashtra | F      | 2022-01-10 |
++----+--------+-----------+------------+-------------+------------+---------+--------------+--------------------+--------+------------+
+3 rows in set (0.00 sec)
