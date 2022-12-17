@@ -290,3 +290,44 @@ mysql> select * from employee_payroll;
 +----+--------+-----------+------------+-------------+------------+---------+--------------+--------------------+--------+------------+
 3 rows in set (0.00 sec)
 
+mysql> #UC11 Implements the ER Diagram into payroll service DB
+mysql>
+
+mysql> create table employee_department
+    ->      (
+    ->      ID INT NOT NULL auto_increment,
+    ->     EmpID INT unsigned,
+    ->      DeptName VARCHAR(45) NOT NULL,
+    ->     Primary key(ID),
+    ->      FOREIGN KEY (EmpID) REFERENCES employee_payroll(id));
+Query OK, 0 rows affected (0.47 sec)
+
+mysql> insert into employee_department ( EmpId, DeptName) values (  '1', 'Finance'),
+    -> ('2', 'Sales'),
+    -> ('3', 'Marketing');
+Query OK, 3 rows affected (0.08 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee_department;
++----+-------+-----------+
+| ID | EmpID | DeptName  |
++----+-------+-----------+
+|  1 |     1 | Finance   |
+|  2 |     2 | Sales     |
+|  3 |     3 | Marketing |
++----+-------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> Insert into employee_department (EmpID, DeptName) values ('3','HR');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from employee_department;
++----+-------+-----------+
+| ID | EmpID | DeptName  |
++----+-------+-----------+
+|  1 |     1 | Finance   |
+|  2 |     2 | Sales     |
+|  3 |     3 | Marketing |
+|  4 |     3 | HR        |
++----+-------+-----------+
+4 rows in set (0.00 sec)
