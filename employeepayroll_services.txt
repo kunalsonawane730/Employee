@@ -331,3 +331,44 @@ mysql> select * from employee_department;
 |  4 |     3 | HR        |
 +----+-------+-----------+
 4 rows in set (0.00 sec)
+
+mysql> #UC12 Ensure all retrieve queries done especially in UC 4, UC 5 and UC 7 are working with new table structure
+mysql>
+mysql> select * from employee_payroll emp1 ,employee_department emp2
+    -> where emp1.id=emp2.EmpID;
++----+--------+-----------+------------+-------------+------------+---------+--------------+--------------------+--------+------------+----+-------+-----------+
+| id | name   | basic_pay | deductions | taxable_pay | income_tax | net_pay | phone_number | address            | Gender | start      | ID | EmpID | DeptName  |
++----+--------+-----------+------------+-------------+------------+---------+--------------+--------------------+--------+------------+----+-------+-----------+
+|  1 | Kunal  |   5000000 |      60000 |        7000 |      20000 |   20000 | 7757877309   | mumbai,Maharashtra | M      | 2022-01-01 |  1 |     1 | Finance   |
+|  2 | Arvind |   5000000 |      60000 |        7000 |      20000 |   20000 | 8329923513   | mumbai,Maharashtra | M      | 2022-01-05 |  2 |     2 | Sales     |
+|  3 | Dipali |   5000000 |      60000 |        7000 |      20000 |   20000 | 9370785156   | mumbai,Maharashtra | F      | 2022-01-10 |  3 |     3 | Marketing |
+|  3 | Dipali |   5000000 |      60000 |        7000 |      20000 |   20000 | 9370785156   | mumbai,Maharashtra | F      | 2022-01-10 |  4 |     3 | HR        |
++----+--------+-----------+------------+-------------+------------+---------+--------------+--------------------+--------+------------+----+-------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> select sum(Net_Pay) from employee_payroll emp1 , employee_department emp2
+    -> where emp1.id=emp2.EmpID;
++--------------+
+| sum(Net_Pay) |
++--------------+
+|        80000 |
++--------------+
+1 row in set (0.02 sec)
+
+mysql> select avg(net_pay) from employee_payroll emp1 , employee_department emp2
+    -> where emp1.id=emp2.EmpID;
++--------------+
+| avg(net_pay) |
++--------------+
+|        20000 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select count(net_pay) from employee_payroll emp1 , employee_department emp2
+    -> where emp1.id=emp2.EmpID;
++----------------+
+| count(net_pay) |
++----------------+
+|              4 |
++----------------+
+1 row in set (0.00 sec)
